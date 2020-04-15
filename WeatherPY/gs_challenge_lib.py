@@ -6,6 +6,7 @@ from pprint import pprint
 import requests
 
 from weather_lib import Perform_Weather_Check
+from weatherplots_lib import Generate_Scatter_Plots
 
 #TODO: Remove this function as it is pulled from citypy
 # read in the cities .csv file
@@ -41,7 +42,19 @@ def Load_Random_Cities_Locations():
     return pd.DataFrame(cities)
     
 
-cities = Load_Random_Cities_Locations()
-print(cities.head())
-cities_data = Perform_Weather_Check(cities)
-cities_data.to_csv("Output_Data/cities2.csv")
+# cities = Load_Random_Cities_Locations()
+# print(cities.head())
+# cities_data = Perform_Weather_Check(cities)
+# cities_data.to_csv("Output_Data/cities2.csv")
+
+def Load_City_Data():
+    csv_file = 'Output_Data/Cities.csv'
+    cities_df = pd.read_csv(csv_file)
+    return cities_df
+
+    
+    
+cities_df = Load_City_Data()
+print(cities_df.head())
+Generate_Scatter_Plots(cities_df)
+
