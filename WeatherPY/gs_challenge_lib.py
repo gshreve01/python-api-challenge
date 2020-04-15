@@ -7,6 +7,7 @@ import requests
 
 from weather_lib import Perform_Weather_Check
 from weatherplots_lib import Generate_Scatter_Plots
+from weatherplots_lib import Generate_Hemispher_Plots
 
 #TODO: Remove this function as it is pulled from citypy
 # read in the cities .csv file
@@ -20,13 +21,13 @@ from weatherplots_lib import Generate_Scatter_Plots
 #     return sample_cities
 
 #Returns data frame with loaded cities latitue and logitude
-def Load_Random_Cities_Locations():
+def Load_Random_Cities_Locations(lattitude_low, latitude_high):
     # List for holding lat_lngs and cities
     lat_lngs = []
     cities = []
     # Create a set of random lat and lng combinations
-    lats = np.random.uniform(low=-90.000, high=90.000, size=1500)
-    lngs = np.random.uniform(low=-180.000, high=180.000, size=1500)
+    lats = np.random.uniform(low=lattitude_low, high=latitude_high, size=2000)
+    lngs = np.random.uniform(low=-180.000, high=180.000, size=2000)
     lat_lngs = zip(lats, lngs)
     
     # Identify nearest city for each lat, lng combination
@@ -42,19 +43,27 @@ def Load_Random_Cities_Locations():
     return pd.DataFrame(cities)
     
 
-# cities = Load_Random_Cities_Locations()
-# print(cities.head())
-# cities_data = Perform_Weather_Check(cities)
-# cities_data.to_csv("Output_Data/cities2.csv")
-
 def Load_City_Data():
     csv_file = 'Output_Data/Cities.csv'
     cities_df = pd.read_csv(csv_file)
     return cities_df
 
+
+# northern_cities = Load_Random_Cities_Locations(0, 90)
+# southern_cities = Load_Random_Cities_Locations(-90, 0)
+# cities = pd.concat([northern_cities.head(300), southern_cities.head(300)]
+#                         , sort = False)
+
+# print(f"Number of cities: {len(cities)}")
+# print(cities.head())
+# cities_data = Perform_Weather_Check(cities)
+# cities_data.to_csv("Output_Data/cities.csv")
+
+
     
     
 cities_df = Load_City_Data()
 print(cities_df.head())
-Generate_Scatter_Plots(cities_df)
+#Generate_Scatter_Plots(cities_df)
+Generate_Hemispher_Plots(cities_df)
 
