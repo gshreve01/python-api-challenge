@@ -8,6 +8,7 @@ ideal cities
 @author: gshre
 """
 import requests
+import pandas as pd
 
 from pprint import pprint
 from api_keys import g_key
@@ -55,7 +56,7 @@ def Find_Motels_For_Cities(cities):
         if hotel != "":
             hotels.append(hotel)
             
-    return hotels
+    return pd.DataFrame(hotels)
 
 def Find_Hotel_For_City(city, encrypted_key):
     """

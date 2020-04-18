@@ -72,10 +72,10 @@ def Generate_Hemispher_Plots(cities_df):
         
     # Temperature
     series_type = 'Max Temp'
-    label = 'Temperature (F)'
+    label = 'Max Temp'
     Regression_latitude('Northern', northern_latitude, northern_df[series_type] 
                         , label)
-    print("A high negative correlation value indicates that the farther from 0 latitude, the colder the temperature")
+    print("A high negative correlation value indicates that the closer to 0 latitude, the warmer the temperature")
 
     Regression_latitude('Southern', southern_latitude, southern_df[series_type] 
                         ,label)
